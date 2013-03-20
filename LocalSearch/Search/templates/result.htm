@@ -1,0 +1,29 @@
+{% if query %}
+Search result for "{{query}}"<br/><br/>
+{% endif %}
+{% if response %}
+<ul class="thumbnails">
+{% for result in response.venues %}
+
+
+  <li class="span4">
+  	
+    <div class="thumbnail">
+      <img src="{{ result.categories.0.icon.prefix }}bg_32{{ result.categories.0.icon.suffix }}" alt="">
+      <h3>{{ result.name }}</h3>
+      <p>{{ result.location.distance }} meters </p> 
+      <p>{{ result.location.address }}</p>
+      <a class="btn" onclick="javascript: $('#mapto').html('{{result.name}}'); latitude = {{result.location.lat}}; longitude = {{result.location.lng}} ; initialize(); $('#map').modal('show');">View Location On Map</a>
+    </div>
+    
+  </li>
+
+
+{% empty %}
+ 
+<div class="alert alert-error">
+  No Results Found !!! Try different query ..
+</div>
+{% endfor %}
+</ul>
+{% endif %}
